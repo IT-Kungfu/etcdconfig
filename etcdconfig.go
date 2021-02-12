@@ -2,7 +2,6 @@ package etcdconfig
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"
 	"log"
@@ -14,6 +13,7 @@ import (
 )
 
 const (
+	DefaultETCDAddr              = "localhost:2379"
 	TagDefault                   = "default"
 	TagETCD                      = "etcd"
 	TagConnection                = "connection"
@@ -42,9 +42,8 @@ func GetConfig(c interface{}) (*ETCDConfig, error) {
 	}
 
 	etcdAddr := os.Getenv("ETCD_ADDR")
-
 	if len(etcdAddr) == 0 {
-		return nil, errors.New("etcd server address is not specified")
+		etcdAddr = DefaultETCDAddr
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
