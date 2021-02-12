@@ -23,7 +23,7 @@ func init() {
 	}
 
 	if log, err = logger.New(&logger.Config{
-		LogLevel:     "debug",
+		LogLevel:     cfg.ServerLogLevel,
 		SentryDSN:    "",
 		LogstashAddr: "",
 		ServiceName:  "server",
